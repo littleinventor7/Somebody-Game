@@ -1,0 +1,360 @@
+[gd_scene load_steps=27 format=3 uid="uid://cafdny0o6vsd"]
+
+[ext_resource type="Texture2D" uid="uid://d28b72gywou33" path="res://tilemap_packed.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://blxw026jx5jtp" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="AudioStream" uid="uid://cib3ny2cgoi7b" path="res://cartoon-jump-6462.mp3" id="3_i3pqv"]
+[ext_resource type="AudioStream" uid="uid://cq70w074ixp76" path="res://jump-climb-or-damage-sound-f-95942.mp3" id="4_hqtel"]
+[ext_resource type="Texture2D" uid="uid://c2kmssq6abia2" path="res://Health.png" id="4_sweqy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_onrkg"]
+size = Vector2(15, 20)
+
+[sub_resource type="Animation" id="Animation_i3pqv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(399, 0, 21, 21)]
+}
+
+[sub_resource type="Animation" id="Animation_onrkg"]
+resource_name = "move"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(588, 0, 21, 21), Rect2(609, 0, 21, 21)]
+}
+
+[sub_resource type="Animation" id="Animation_hqtel"]
+resource_name = "stand"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(399, 0, 21, 21)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sweqy"]
+_data = {
+&"RESET": SubResource("Animation_i3pqv"),
+&"move": SubResource("Animation_onrkg"),
+&"stand": SubResource("Animation_hqtel")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_i3pqv"]
+font_size = 40
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 7
+shadow_color = Color(0, 0, 0, 0.5686275)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hqtel"]
+font_size = 40
+font_color = Color(0, 1, 0, 1)
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 7
+shadow_color = Color(0, 0, 0, 0.5764706)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sweqy"]
+bg_color = Color(0, 0, 0, 0.4)
+corner_radius_top_left = 35
+corner_radius_top_right = 35
+corner_radius_bottom_right = 35
+corner_radius_bottom_left = 35
+shadow_size = 80
+
+[sub_resource type="LabelSettings" id="LabelSettings_2hs0m"]
+font_size = 120
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2hs0m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1jxqw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dw050"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b26j0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n7ghd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nvl01"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ivps1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_urp6f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bwjto"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_606se"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u1c27"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sweqy"]
+font_size = 120
+font_color = Color(0.171875, 1, 0, 1)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+script = ExtResource("1_onrkg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_4flbx")
+region_enabled = true
+region_rect = Rect2(399, 0, 21, 21)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_onrkg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_sweqy")
+}
+
+[node name="jumpsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_i3pqv")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="health" type="CanvasLayer" parent="UI"]
+
+[node name="healthsprite" type="Sprite2D" parent="UI/health"]
+position = Vector2(1006, 67)
+scale = Vector2(3, 3)
+texture = ExtResource("4_sweqy")
+vframes = 4
+
+[node name="score" type="CanvasLayer" parent="UI"]
+
+[node name="score label" type="Label" parent="UI/score"]
+offset_left = 61.0
+offset_top = 31.0
+offset_right = 198.0
+offset_bottom = 86.0
+text = "Coins : "
+label_settings = SubResource("LabelSettings_i3pqv")
+
+[node name="score numer label" type="Label" parent="UI/score/score label"]
+layout_mode = 0
+offset_left = 142.0
+offset_right = 182.0
+offset_bottom = 171.0
+text = "
+0
+"
+label_settings = SubResource("LabelSettings_hqtel")
+
+[node name="Sprite2D2" type="Sprite2D" parent="UI/score"]
+position = Vector2(32, 60)
+scale = Vector2(3, 3)
+texture = ExtResource("1_4flbx")
+region_enabled = true
+region_rect = Rect2(378, 42, 21, 21)
+
+[node name="dieing" type="CanvasLayer" parent="UI"]
+process_mode = 3
+visible = false
+
+[node name="Panel" type="Panel" parent="UI/dieing"]
+offset_left = 10.0
+offset_top = 18.0
+offset_right = 1139.0
+offset_bottom = 632.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_sweqy")
+
+[node name="Label" type="Label" parent="UI/dieing"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -247.0
+offset_top = 61.0
+offset_right = 247.0
+offset_bottom = 226.0
+grow_horizontal = 2
+text = "You Died"
+label_settings = SubResource("LabelSettings_2hs0m")
+
+[node name="Button" type="Button" parent="UI/dieing"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.0
+offset_top = -7.0
+offset_right = 86.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0.26171875, 0.26171875, 0.26171875, 1)
+theme_override_colors/font_hover_color = Color(0.37890625, 0.37890625, 0.37890625, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.3984375, 0.3984375, 0.3984375, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2hs0m")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_1jxqw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dw050")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_b26j0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_n7ghd")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_nvl01")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ivps1")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_urp6f")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bwjto")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_606se")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u1c27")
+text = "Play Again"
+
+[node name="Button2" type="Button" parent="UI/dieing"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -227.0
+offset_right = 86.0
+offset_bottom = -173.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0.26171875, 0.26171875, 0.26171875, 1)
+theme_override_colors/font_hover_color = Color(0.37890625, 0.37890625, 0.37890625, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.3984375, 0.3984375, 0.3984375, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2hs0m")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_1jxqw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dw050")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_b26j0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_n7ghd")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_nvl01")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ivps1")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_urp6f")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bwjto")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_606se")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u1c27")
+text = "Quit
+"
+
+[node name="win" type="CanvasLayer" parent="UI"]
+process_mode = 3
+visible = false
+
+[node name="Panel2" type="Panel" parent="UI/win"]
+offset_left = 10.0
+offset_top = 18.0
+offset_right = 1139.0
+offset_bottom = 632.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_sweqy")
+
+[node name="Label2" type="Label" parent="UI/win"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -257.5
+offset_top = 62.0
+offset_right = 259.5
+offset_bottom = 227.0
+grow_horizontal = 2
+text = "You Win"
+label_settings = SubResource("LabelSettings_sweqy")
+
+[node name="Button3" type="Button" parent="UI/win"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -86.0
+offset_top = -7.0
+offset_right = 86.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0.26171875, 0.26171875, 0.26171875, 1)
+theme_override_colors/font_hover_color = Color(0.37890625, 0.37890625, 0.37890625, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.3984375, 0.3984375, 0.3984375, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2hs0m")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_1jxqw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dw050")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_b26j0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_n7ghd")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_nvl01")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ivps1")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_urp6f")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bwjto")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_606se")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u1c27")
+text = "Play Again"
+
+[node name="Button4" type="Button" parent="UI/win"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -86.0
+offset_top = -227.0
+offset_right = 86.0
+offset_bottom = -173.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0.26171875, 0.26171875, 0.26171875, 1)
+theme_override_colors/font_hover_color = Color(0.37890625, 0.37890625, 0.37890625, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.3984375, 0.3984375, 0.3984375, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 33
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2hs0m")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_1jxqw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_dw050")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_b26j0")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_n7ghd")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_nvl01")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ivps1")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_urp6f")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bwjto")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_606se")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_u1c27")
+text = "Quit
+"
+
+[node name="damage_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_hqtel")
+
+[connection signal="pressed" from="UI/dieing/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/dieing/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="UI/win/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="pressed" from="UI/win/Button3" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="UI/win/Button4" to="." method="_on_button_4_pressed"]
+[connection signal="pressed" from="UI/win/Button4" to="." method="_on_button_2_pressed"]
