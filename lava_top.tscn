@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnm1xrms7kur3"]
+
+[ext_resource type="Script" uid="uid://dbt10ar0wapxt" path="res://lava_top.gd" id="1_6o5hm"]
+[ext_resource type="Texture2D" uid="uid://d28b72gywou33" path="res://tilemap_packed.png" id="2_80yvh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tu12r"]
+radius = 5.0
+height = 22.0
+
+[sub_resource type="Animation" id="Animation_5rurb"]
+resource_name = "move"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(252, 0, 21, 21), Rect2(273, 0, 21, 21)]
+}
+
+[sub_resource type="Animation" id="Animation_5x3h7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(252, 0, 21, 21)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8idyt"]
+_data = {
+&"RESET": SubResource("Animation_5x3h7"),
+&"move": SubResource("Animation_5rurb")
+}
+
+[node name="lava top" type="Area2D"]
+script = ExtResource("1_6o5hm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_80yvh")
+region_enabled = true
+region_rect = Rect2(252, 0, 21, 21)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_tu12r")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_8idyt")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

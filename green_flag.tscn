@@ -1,0 +1,78 @@
+[gd_scene load_steps=7 format=3 uid="uid://doomqfccdc5hc"]
+
+[ext_resource type="Texture2D" uid="uid://d28b72gywou33" path="res://tilemap_packed.png" id="1_1fdd6"]
+
+[sub_resource type="Animation" id="Animation_cqqjp"]
+resource_name = "after opend"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(231, 231, 21, 21), Rect2(231, 210, 21, 21)]
+}
+
+[sub_resource type="Animation" id="Animation_ueuly"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(315, 210, 21, 21)]
+}
+
+[sub_resource type="Animation" id="Animation_o0gan"]
+resource_name = "open"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.26666668),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Rect2(315, 210, 21, 21), Rect2(231, 231, 21, 21)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4t6t6"]
+_data = {
+&"RESET": SubResource("Animation_ueuly"),
+&"after opend": SubResource("Animation_cqqjp"),
+&"open": SubResource("Animation_o0gan")
+}
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_s7emd"]
+a = Vector2(0, -10)
+
+[node name="Area2D" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_1fdd6")
+region_enabled = true
+region_rect = Rect2(315, 210, 21, 21)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4t6t6")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8.5, 0.5)
+shape = SubResource("SegmentShape2D_s7emd")
