@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://bypphofv7jl3v"]
+
+[ext_resource type="PackedScene" uid="uid://ldr33srn3t4v" path="res://raindrops.tscn" id="1_0n1gf"]
+[ext_resource type="Script" uid="uid://ciysa4ll7cgql" path="res://heavy_cloud.gd" id="1_h0fyw"]
+[ext_resource type="Texture2D" uid="uid://58yr3gtjqiu6" path="res://cloud.png" id="2_h0fyw"]
+[ext_resource type="Script" uid="uid://boyo0y6j73vm3" path="res://rain_spawner.gd" id="3_0n1gf"]
+[ext_resource type="PackedScene" uid="uid://8ysgfss0v1gi" path="res://lightning.tscn" id="5_ckevs"]
+[ext_resource type="Script" uid="uid://dwi6ffom0s0vl" path="res://lightning_spawner.gd" id="5_rpy7d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h0fyw"]
+radius = 5.0
+height = 34.0
+
+[node name="heavy cloud" type="CharacterBody2D"]
+script = ExtResource("1_h0fyw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, 6)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_h0fyw")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, -4)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_h0fyw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 10
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_h0fyw")
+
+[node name="raindrops" parent="." instance=ExtResource("1_0n1gf")]
+z_index = 5
+position = Vector2(-8, 3)
+collision_layer = 1
+collision_mask = 1
+
+[node name="Rain Spawner" type="Node2D" parent="."]
+z_index = 5
+position = Vector2(3, -57)
+scale = Vector2(0.2, 0.2)
+script = ExtResource("3_0n1gf")
+rain_scene = ExtResource("1_0n1gf")
+
+[node name="SpawnTimer" type="Timer" parent="Rain Spawner"]
+wait_time = 0.1
+
+[node name="Lightning Spawner" type="Node2D" parent="."]
+z_index = 5
+position = Vector2(3, -57)
+scale = Vector2(0.2, 0.2)
+script = ExtResource("5_rpy7d")
+lightning_scene = ExtResource("5_ckevs")
+
+[node name="SpawnTimer" type="Timer" parent="Lightning Spawner"]
+wait_time = 0.1
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(0, 3)
+target_position = Vector2(0, 134)
+
+[node name="lightning" parent="." instance=ExtResource("5_ckevs")]
+position = Vector2(1, 41)
+
+[connection signal="timeout" from="Rain Spawner/SpawnTimer" to="Rain Spawner" method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="Lightning Spawner/SpawnTimer" to="Lightning Spawner" method="_on_spawn_timer_timeout"]

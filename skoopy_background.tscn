@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnq2hhb1qgpbm"]
+
+[ext_resource type="Script" uid="uid://bu0l71rwho2st" path="res://skoopy_background.gd" id="1_1n1l1"]
+[ext_resource type="Texture2D" uid="uid://defm4c4qmanip" path="res://spooky background.png" id="2_01jq7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1n1l1"]
+size = Vector2(16, 24)
+
+[node name="skoopy background" type="CharacterBody2D"]
+script = ExtResource("1_1n1l1")
+
+[node name="SpookyBackground" type="Sprite2D" parent="."]
+position = Vector2(145, 82)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_01jq7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(144, 82)
+shape = SubResource("RectangleShape2D_1n1l1")
