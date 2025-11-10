@@ -1,0 +1,111 @@
+[gd_scene load_steps=10 format=3 uid="uid://bka2wdd33ofy7"]
+
+[ext_resource type="PackedScene" uid="uid://d3omdr7m05ox6" path="res://grid.tscn" id="1_36m7e"]
+[ext_resource type="Script" uid="uid://dddwulnb4rtvj" path="res://xo_mini_game.gd" id="1_r8vol"]
+[ext_resource type="PackedScene" uid="uid://c621j6mucqjup" path="res://circle.tscn" id="2_joqg0"]
+[ext_resource type="PackedScene" uid="uid://ci6o2jlmf244q" path="res://cross.tscn" id="3_mme3y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mme3y"]
+bg_color = Color(0, 0.5078125, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7laf"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+shadow_color = Color(0, 0, 0, 0.7294118)
+shadow_size = 5
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nftlu"]
+bg_color = Color(0.027572632, 0.14434206, 0.54296875, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.94415283, 1, 0.28515625, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1dior"]
+bg_color = Color(0, 0.48828125, 0.19073486, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wp82e"]
+bg_color = Color(0, 0.421875, 0.016479492, 1)
+
+[node name="XO Mini Game" type="Node"]
+script = ExtResource("1_r8vol")
+circle_scene = ExtResource("2_joqg0")
+cross_scene = ExtResource("3_mme3y")
+metadata/_edit_horizontal_guides_ = [92.0, 84.0, 542.0, 258.0, 552.0]
+metadata/_edit_vertical_guides_ = [575.0, 1033.0, 353.0, 1030.0]
+
+[node name="MainPanel" type="Panel" parent="."]
+custom_minimum_size = Vector2(1152, 648)
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mme3y")
+
+[node name="Grid" parent="." instance=ExtResource("1_36m7e")]
+offset_left = 347.0
+offset_top = 95.0
+offset_right = 387.0
+offset_bottom = 135.0
+
+[node name="PlayerLabel" type="Label" parent="."]
+offset_left = 829.0
+offset_top = 121.0
+offset_right = 1129.0
+offset_bottom = 188.0
+theme_override_font_sizes/font_size = 40
+text = "Next Player :"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerPanel" type="Panel" parent="."]
+offset_left = 906.0
+offset_top = 242.0
+offset_right = 1056.0
+offset_bottom = 392.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_n7laf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+offset_left = 372.0
+offset_top = 201.0
+offset_right = 772.0
+offset_bottom = 451.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_nftlu")
+
+[node name="WinnerLabel" type="Label" parent="CanvasLayer"]
+offset_left = 439.0
+offset_top = 234.0
+offset_right = 697.0
+offset_bottom = 289.0
+theme_override_font_sizes/font_size = 40
+text = "Player 1 Wins"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+process_mode = 3
+offset_left = 452.0
+offset_top = 328.0
+offset_right = 702.0
+offset_bottom = 391.0
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_1dior")
+theme_override_styles/hover = SubResource("StyleBoxFlat_wp82e")
+text = "Continue
+"
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
