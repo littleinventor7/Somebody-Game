@@ -1,3 +1,4 @@
-It's a game a somebody moving to collect coins while moving in levels. I had star making this game while my journeyin learning godot use arrow keys to move. there are special power you will get when you need it but it will need you to sacrifice by 10 coins to use these powers click on x key.the game isn't finished I still working in it.I add more levels.there is a new level has button that send signal to the gates to open and to go to directly to the new level press the new level button. There is a new Tic Tac Toe game between level 20 and level 21 but still can't go to level 21 yet, I'm working in it.
-
+It's a game a somebody moving to collect coins while moving in levels. I had start making this game while my journey in learning Godot use arrow keys to move. there are special power you will get when you need it but it will need you to sacrifice by 10 coins to use these powers click on x key.the game isn't finished I still working in it.I add more levels.
+I changed the assets of the game for all the levels and made a new 4 levels . the game is finished the last level has 4 themes.
+Demo:
 https://hc-cdn.hel1.your-objectstorage.com/s/v3/5b1927181b296b1a_screen-capture__4_.mp4
